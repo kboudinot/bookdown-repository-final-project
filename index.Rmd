@@ -1,5 +1,5 @@
---- 
-title: "My first bookdown"
+---
+title: "Exploring gray wolf harvest in Idaho"
 author: "Koryna Boudinot"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -15,51 +15,51 @@ link-citations: yes
 github-repo: rstudio/bookdown-demo
 ---
 
+# Gray wolves
 
-# About
-
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports; for example, a math equation $a^2 + b^2 = c^2$.
-
-![testing images](images/bushtit_and_nest_web.jpg)
-
-```{r img, fig.cap = "\\label{fig:hc}", fig.align='center', out.width='50%', echo = F}
-knitr::include_graphics(path =  "images/bushtit_and_nest_web.jpg")
+```{r fig.cap = "Wolf howling (Photo credit: P. Rebholz)", fig.align='center', out.width='100%', echo = F}
+knitr::include_graphics(path =  "images/wolf_howling.jpg")
 ```
 
-See the photo \ref{fig:hc} of the beautiful bushtit nest. 
+Gray wolves (*Canis lupus)* historically existed in Idaho until they were extirpated due to human persecution in the early 20th century. Gray wolves were reintroduced to Yellowstone National Park, Wyoming, and central Idaho in 1995-1996. Regulated harvest is relatively new for gray wolves in the United States. These populations have expanded leading to removal of the Endangered Species Act protections in 2009. Harvest of wolves began after ESA protections were removed in the Northern Rocky Mountains (Idaho, Montana, and Wyoming).
 
-## Usage 
+## Study area
 
-Each **bookdown** chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter *must* start with a first-level heading: `# A good chapter`, and can contain one (and only one) first-level heading.
+This data was collected from across Idaho, USA (Figure 1.2)
 
-Use second-level and higher headings within chapters like: `## A short section` or `### An even shorter section`.
-
-The `index.Rmd` file is required, and is also your first book chapter. It will be the homepage when you render the book.
-
-## Render book
-
-You can render the HTML version of this example book without changing anything:
-
-1. Find the **Build** pane in the RStudio IDE, and
-
-1. Click on **Build Book**, then select your output format, or select "All formats" if you'd like to use multiple formats from the same book source files.
-
-Or build the book from the R console:
-
-```{r, eval=FALSE}
-bookdown::render_book()
+```{r fig.cap="Map of Idaho with GMUs", fig.align='center', out.width='50%', echo = F}
+knitr::include_graphics(path =  "images/idaho_gmu.jpg")
 ```
 
-To render this example to PDF as a `bookdown::pdf_book`, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.org/tinytex/>.
+Wolves are harvested with methods including hunting and trapping (Figure 1.3).
 
-## Preview book
+```{r fig.cap="Old trap", fig.align='center', out.width='50%', echo = F}
+knitr::include_graphics(path =  "images/trap.jpg")
+```
 
-As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in "Preview book", or from the R console:
+To determine the effects of hunting and trapping on gray wolves we use a combination of fieldwork (Figure 1.4) and genetic data sometimes collected as scat (Figure 1.5). 
 
-```{r eval=FALSE}
+```{r fig.cap="Surveying for wolves", fig.align='center', out.width='50%', echo = F}
+knitr::include_graphics(path =  "images/surveying.jpg")
+```
+
+```{r fig.cap="Freshest wolf scat I've ever seen", fig.align='center', out.width='50%', echo = F}
+knitr::include_graphics(path =  "images/scat.jpg")
+```
+
+
+## Institution
+
+This data was collected and compiled by the Idaho Department of Fish and Game and the University of Idaho [Gray Wolf Research Group](https://www.graywolfresearch.org/) (Figure 1.3)
+
+```{r fig.cap = "Gray Wolf Research Group", fig.align='center', out.width='40%', echo = F}
+knitr::include_graphics(path =  "images/logo.png")
+```
+
+
+```{r eval=FALSE, echo = F}
 bookdown::serve_book()
 ```
-
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages

@@ -1,0 +1,119 @@
+```{r, include=F}
+library(tidyverse)
+library(DBI)
+library(RSQLite)
+
+#Load database
+wolf_db <- dbConnect(SQLite(), "../wolf.db")
+
+#Load tables
+wolf_id <- dbGetQuery(wolf_db, "SELECT * FROM wolf_id;")
+harvest <- dbGetQuery(wolf_db, "SELECT * FROM harvest;")
+life_history <- dbGetQuery(wolf_db, "SELECT * FROM life_history;")
+```
+
+# Data exploration
+
+## Summary statistics
+
+How many wolves in the data set were harvested?
+
+```{r}
+wolf_id %>%
+  summarise(total_wolves = n_distinct(UI_ID), 
+            total_wolves_harvested = sum(mort_tag != "" & !is.na(mort_tag))) %>%
+  tidyr::pivot_longer(cols = everything(),
+                      names_to = "category",
+                      values_to = "count")
+```
+1585 wolves were harvested, according to this database. 
+
+## Data visualization
+
+Here I use ggplot to create reproducible graphs using different elements of the wolf harvest data. 
+
+### How many wolves were harvested each year?
+
+```{r}
+harvest %>%
+  group_by(harvest_year) %>%
+  summarise(animals_harvested = n()) %>% 
+  filter(harvest_year !=2021) %>%
+  ggplot(aes(x = factor(harvest_year), 
+             y = animals_harvested)) +
+  geom_bar(stat = "identity", 
+           fill = "gray") + 
+  geom_smooth(method = "lm", aes(group = 1), color = "black", se = FALSE) +
+  labs(x = "Year", 
+       y = "Count") +
+  theme_minimal()
+```
+
+### How many wolves were harvested by trapping each year?
+```{r}
+harvest %>%
+  filter(mortality_agent == "Trapping", harvest_year != 2021) %>%  
+  count(harvest_year, mortality_agent) %>% 
+  ggplot(aes(x = factor(harvest_year), 
+             y = n, 
+             fill = factor(harvest_year))) +  
+  geom_bar(stat = "identity", 
+           show.legend = F,
+           fill = "gray") +
+  labs(x = "Year", 
+       y = "Count") +
+  theme_minimal() 
+```
+
+### What were the mortality agents in 2020?
+
+```{r}
+harvest %>%
+ filter(harvest_year == 2020) %>%  
+  count(mortality_agent) %>%  
+  ggplot(aes(x = reorder(mortality_agent, n), 
+             y = n,
+             fill = mortality_agent)) +  
+  geom_bar(stat = "identity",
+           show.legend = FALSE,
+           fill = "gray") +  
+  labs(x = "Mortality agent", 
+       y = "Count") +
+  theme_minimal() 
+```
+
+
+
+### What methods of harvest were used in 2020?
+
+```{r}
+harvest %>%
+  filter(harvest_year == 2020) %>%  
+  count(Method) %>%  
+  ggplot(aes(x = reorder(Method, n), 
+             y = n, 
+             fill = Method)) +  
+  geom_bar(stat = "identity",
+           show.legend = F,
+           fill = "gray") +  
+  labs(x = "Harvest Method", 
+       y = "Count") +
+  theme_minimal() 
+```
+
+
+### What harvest weapons were used in 2020?
+
+```{r}
+harvest %>%
+  filter(harvest_year == 2020) %>%  
+  count(Weapon) %>%  
+  ggplot(aes(x = reorder(Weapon, n), y = n, fill = Weapon)) +  
+  geom_bar(stat = "identity",
+           show.legend = F,
+           fill = "gray") +  
+  labs(x = "Weapon", 
+       y = "Count") +
+  theme_minimal() 
+```
+

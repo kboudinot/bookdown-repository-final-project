@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Exploring gray wolf harvest in Idaho</title>
+  <title>Chapter 2 Database Creation | Exploring gray wolf harvest in Idaho</title>
   <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Exploring gray wolf harvest in Idaho" />
+  <meta property="og:title" content="Chapter 2 Database Creation | Exploring gray wolf harvest in Idaho" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
@@ -19,7 +19,7 @@ set in the _output.yml file.</p>" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Exploring gray wolf harvest in Idaho" />
+  <meta name="twitter:title" content="Chapter 2 Database Creation | Exploring gray wolf harvest in Idaho" />
   
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
@@ -36,8 +36,8 @@ set in the _output.yml file.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="database-creation.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="data-exploration.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -191,59 +191,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Exploring gray wolf harvest in Idaho</h1>
-<p class="author"><em>Koryna Boudinot</em></p>
-<p class="date"><em>2024-12-05</em></p>
-</div>
-<div id="gray-wolves" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Gray wolves<a href="index.html#gray-wolves" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
-<img src="images/wolf_howling.jpg" alt="Wolf howling (Photo credit: P. Rebholz)" width="100%" />
+<div id="database-creation" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Database Creation<a href="database-creation.html#database-creation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Data for this project was collected from harvest data from IDFG and individual wolf ID data from field monitoring.</p>
+<p>A database was created using Program R and SQL (Figure 2.1).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-9"></span>
+<img src="images/Gray%20wolf%20ERD.jpg" alt="Database design" width="100%" />
 <p class="caption">
-Figure 1.1: Wolf howling (Photo credit: P. Rebholz)
+Figure 2.1: Database design
 </p>
 </div>
-<p>Gray wolves (<em>Canis lupus)</em> historically existed in Idaho until they were extirpated due to human persecution in the early 20th century. Gray wolves were reintroduced to Yellowstone National Park, Wyoming, and central Idaho in 1995-1996. Regulated harvest is relatively new for gray wolves in the United States. These populations have expanded leading to removal of the Endangered Species Act protections in 2009. Harvest of wolves began after ESA protections were removed in the Northern Rocky Mountains (Idaho, Montana, and Wyoming).</p>
-<div id="study-area" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Study area<a href="index.html#study-area" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This data was collected from across Idaho, USA (Figure 1.2)</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
-<img src="images/idaho_gmu.jpg" alt="Map of Idaho with GMUs" width="50%" />
-<p class="caption">
-Figure 1.2: Map of Idaho with GMUs
-</p>
+<p>To recreate this database, simply execute the code below.</p>
+<div id="load-packages-and-initiate-database" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Load packages and initiate database<a href="database-creation.html#load-packages-and-initiate-database" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<p>Wolves are harvested with methods including hunting and trapping (Figure 1.3).</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
-<img src="images/trap.jpg" alt="Old trap" width="50%" />
-<p class="caption">
-Figure 1.3: Old trap
-</p>
+<div id="create-wolf_id-table" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Create WOLF_ID table<a href="database-creation.html#create-wolf_id-table" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The wolf_id table includes the UI ID (primary key) and mortality ID.</p>
 </div>
-<p>To determine the effects of hunting and trapping on gray wolves we use a combination of fieldwork (Figure 1.4) and genetic data sometimes collected as scat (Figure 1.5).</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-4"></span>
-<img src="images/surveying.jpg" alt="Surveying for wolves" width="50%" />
-<p class="caption">
-Figure 1.4: Surveying for wolves
-</p>
+<div id="create-harvest-table" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Create HARVEST table<a href="database-creation.html#create-harvest-table" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This table contains harvest data including the mortality ID (primary key), sex, age, mortality agent, kill date, harvest year, GMU, kill location, age estimate, days hunted, DNA taken, latitude, longitude, method, pelt number, radio collar, region, whether wolves were seen, tooth taken, and harvest weapon.</p>
 </div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-5"></span>
-<img src="images/scat.jpg" alt="Freshest wolf scat I've ever seen" width="50%" />
-<p class="caption">
-Figure 1.5: Freshest wolf scat I’ve ever seen
-</p>
+<div id="create-life-history-table" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Create LIFE HISTORY table<a href="database-creation.html#create-life-history-table" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This life history table contains the UI ID, sex, natal pack, packs, GMU, pedigree, region and disperser.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="database-creation.html#cb1-1" tabindex="-1"></a><span class="co"># Third table</span></span>
+<span id="cb1-2"><a href="database-creation.html#cb1-2" tabindex="-1"></a><span class="fu">dbExecute</span>(wolf,</span>
+<span id="cb1-3"><a href="database-creation.html#cb1-3" tabindex="-1"></a>          <span class="st">&quot;CREATE TABLE life_history (</span></span>
+<span id="cb1-4"><a href="database-creation.html#cb1-4" tabindex="-1"></a><span class="st">          UI_ID varchar NOT NULL PRIMARY KEY,</span></span>
+<span id="cb1-5"><a href="database-creation.html#cb1-5" tabindex="-1"></a><span class="st">          sex varchar,</span></span>
+<span id="cb1-6"><a href="database-creation.html#cb1-6" tabindex="-1"></a><span class="st">          natal_pack varchar,</span></span>
+<span id="cb1-7"><a href="database-creation.html#cb1-7" tabindex="-1"></a><span class="st">          pack_1 varchar,</span></span>
+<span id="cb1-8"><a href="database-creation.html#cb1-8" tabindex="-1"></a><span class="st">          pack_2 varchar,</span></span>
+<span id="cb1-9"><a href="database-creation.html#cb1-9" tabindex="-1"></a><span class="st">          pack_3 varchar,</span></span>
+<span id="cb1-10"><a href="database-creation.html#cb1-10" tabindex="-1"></a><span class="st">          GMU varchar,</span></span>
+<span id="cb1-11"><a href="database-creation.html#cb1-11" tabindex="-1"></a><span class="st">          pedigree varchar,</span></span>
+<span id="cb1-12"><a href="database-creation.html#cb1-12" tabindex="-1"></a><span class="st">          region varchar,</span></span>
+<span id="cb1-13"><a href="database-creation.html#cb1-13" tabindex="-1"></a><span class="st">          disperser varchar</span></span>
+<span id="cb1-14"><a href="database-creation.html#cb1-14" tabindex="-1"></a><span class="st">          FOREIGN KEY (UI_ID) REFERENCES wolf_identification(UI_ID)</span></span>
+<span id="cb1-15"><a href="database-creation.html#cb1-15" tabindex="-1"></a><span class="st">          );&quot;</span>)</span>
+<span id="cb1-16"><a href="database-creation.html#cb1-16" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="database-creation.html#cb1-17" tabindex="-1"></a><span class="co"># Load csv </span></span>
+<span id="cb1-18"><a href="database-creation.html#cb1-18" tabindex="-1"></a>life_history_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;life_history_data.csv&quot;</span>)</span>
+<span id="cb1-19"><a href="database-creation.html#cb1-19" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="database-creation.html#cb1-20" tabindex="-1"></a><span class="co"># Check that names align</span></span>
+<span id="cb1-21"><a href="database-creation.html#cb1-21" tabindex="-1"></a><span class="fu">names</span>(life_history_data)</span>
+<span id="cb1-22"><a href="database-creation.html#cb1-22" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="database-creation.html#cb1-23" tabindex="-1"></a><span class="co"># Write csv into sql table</span></span>
+<span id="cb1-24"><a href="database-creation.html#cb1-24" tabindex="-1"></a><span class="fu">dbWriteTable</span>(wolf, <span class="st">&quot;life_history&quot;</span>, life_history_data, <span class="at">append =</span> T)</span></code></pre></div>
 </div>
-</div>
-<div id="institution" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Institution<a href="index.html#institution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This data was collected and compiled by the Idaho Department of Fish and Game and the University of Idaho <a href="https://www.graywolfresearch.org/">Gray Wolf Research Group</a> (Figure 1.3)</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-6"></span>
-<img src="images/logo.png" alt="Gray Wolf Research Group" width="40%" />
-<p class="caption">
-Figure 1.6: Gray Wolf Research Group
-</p>
-</div>
+<div id="check-data" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Check data<a href="database-creation.html#check-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You should then be able to run this code to check the data.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="database-creation.html#cb2-1" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb2-2"><a href="database-creation.html#cb2-2" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span>
+<span id="cb2-3"><a href="database-creation.html#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="database-creation.html#cb2-4" tabindex="-1"></a>wolf <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(), <span class="st">&quot;wolf.db&quot;</span>)</span>
+<span id="cb2-5"><a href="database-creation.html#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="database-creation.html#cb2-6" tabindex="-1"></a><span class="fu">dbGetQuery</span>(wolf, <span class="st">&quot;SELECT * FROM wolf_id LIMIT 3;&quot;</span>)</span>
+<span id="cb2-7"><a href="database-creation.html#cb2-7" tabindex="-1"></a><span class="fu">dbGetQuery</span>(wolf, <span class="st">&quot;SELECT * FROM harvest LIMIT 3;&quot;</span>)</span>
+<span id="cb2-8"><a href="database-creation.html#cb2-8" tabindex="-1"></a><span class="fu">dbGetQuery</span>(wolf, <span class="st">&quot;SELECT * FROM life_history LIMIT 3;&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>
@@ -252,8 +260,8 @@ Figure 1.6: Gray Wolf Research Group
           </div>
         </div>
       </div>
-
-<a href="database-creation.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-exploration.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -284,7 +292,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/index.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-Database-Creation.Rmd",
 "text": "Edit"
 },
 "history": {

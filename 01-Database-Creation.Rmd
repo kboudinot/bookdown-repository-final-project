@@ -1,0 +1,131 @@
+# Database Creation
+
+Data for this project was collected from harvest data from IDFG and individual wolf ID data from field monitoring. 
+
+A database was created using Program R and SQL (Figure 2.1).
+
+```{r fig.cap = "Database design", fig.align='center', out.width='100%', echo = F}
+knitr::include_graphics(path =  "images/Gray wolf ERD.jpg")
+```
+
+To recreate this database, simply execute the code below.
+
+## Load packages and initiate database
+
+```{r load packages, eval = F, include = F}
+# Load packages
+library(DBI)
+library(RSQLite)
+
+# Create database
+wolf <- dbConnect(SQLite(),"wolf.db")
+```
+
+## Create WOLF_ID table
+
+The wolf_id table includes the UI ID (primary key) and mortality ID.
+
+```{r first table, eval = F, include = F}
+# First table
+dbExecute(wolf_db,"CREATE TABLE wolf_id (
+          UI_ID varchar NOT NULL PRIMARY KEY,
+          mort_tag real);")
+
+# Load csv 
+wolf_id <- read.csv("wolf_identification.csv")
+
+# Check names
+names(wolf_id)
+
+# Crite csv into sql table
+dbWriteTable(wolf, "wolf_id", wolf_id, append = T)
+```
+
+## Create HARVEST table
+
+This table contains harvest data including the mortality ID (primary key), sex, age, mortality agent, kill date, harvest year, GMU, kill location, age estimate, days hunted, DNA taken, latitude, longitude, method, pelt number, radio collar, region, whether wolves were seen, tooth taken, and harvest weapon. 
+
+```{r second table, eval = F, include = F}
+# Second table
+dbExecute(wolf,
+          "CREATE TABLE harvest (
+          mort_tag real NOT NULL PRIMARY KEY,
+          sex varchar,
+          age real,
+          mortality_agent varchar,
+          kill_date date,
+          harvest_year varchar,
+          GMU varchar,
+          kill_location varchar,
+          age_estimate varchar,
+          days_hunted real,
+          DNA_taken varchar,
+          latitude varchar,
+          longitude varchar,
+          method varchar,
+          pelt_number real,
+          radio_collar varchar,
+          region real,
+          saw_wolves varchar,
+          tooth_taken varchar,
+          weapon varchar
+          FOREIGN KEY (mort_tag) REFERENCES wolf_id(mort_tag)
+          );")
+
+# Load csv 
+harvest_data <- read.csv("harvest_data.csv")
+
+# Check that names align
+names(harvest_data)
+
+# Write csv into sql table
+dbWriteTable(wolf, "harvest", harvest_data, append = T)
+```
+
+## Create LIFE HISTORY table
+
+This life history table contains the UI ID, sex, natal pack, packs, GMU, pedigree, region and disperser. 
+
+```{r third table, eval = F}
+# Third table
+dbExecute(wolf,
+          "CREATE TABLE life_history (
+          UI_ID varchar NOT NULL PRIMARY KEY,
+          sex varchar,
+          natal_pack varchar,
+          pack_1 varchar,
+          pack_2 varchar,
+          pack_3 varchar,
+          GMU varchar,
+          pedigree varchar,
+          region varchar,
+          disperser varchar
+          FOREIGN KEY (UI_ID) REFERENCES wolf_identification(UI_ID)
+          );")
+
+# Load csv 
+life_history_data <- read.csv("life_history_data.csv")
+
+# Check that names align
+names(life_history_data)
+
+# Write csv into sql table
+dbWriteTable(wolf, "life_history", life_history_data, append = T)
+```
+
+
+## Check data
+
+You should then be able to run this code to check the data. 
+
+```{r check data, eval = F}
+library(DBI)
+library(RSQLite)
+
+wolf <- dbConnect(SQLite(), "wolf.db")
+
+dbGetQuery(wolf, "SELECT * FROM wolf_id LIMIT 3;")
+dbGetQuery(wolf, "SELECT * FROM harvest LIMIT 3;")
+dbGetQuery(wolf, "SELECT * FROM life_history LIMIT 3;")
+```
+
