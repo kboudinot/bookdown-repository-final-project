@@ -19,14 +19,10 @@ life_history <- dbGetQuery(wolf_db, "SELECT * FROM life_history;")
 How many wolves in the data set were harvested?
 
 ```{r}
-wolf_id %>%
-  summarise(total_wolves = n_distinct(UI_ID), 
-            total_wolves_harvested = sum(mort_tag != "" & !is.na(mort_tag))) %>%
-  tidyr::pivot_longer(cols = everything(),
-                      names_to = "category",
-                      values_to = "count")
+harvest %>%
+  summarise(total_wolves_harvested = n_distinct(mort_tag))
 ```
-1585 wolves were harvested, according to this database. 
+4661 wolves were harvested, according to this database. 
 
 ## Data visualization
 
@@ -37,7 +33,7 @@ Here I use ggplot to create reproducible graphs using different elements of the 
 ```{r}
 harvest %>%
   group_by(harvest_year) %>%
-  summarise(animals_harvested = n()) %>% 
+  summarise(animals_harvested = n_distinct(mort_tag)) %>% 
   filter(harvest_year !=2021) %>%
   ggplot(aes(x = factor(harvest_year), 
              y = animals_harvested)) +

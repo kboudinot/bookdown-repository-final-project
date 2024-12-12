@@ -21,7 +21,7 @@ github-repo: rstudio/bookdown-demo
 knitr::include_graphics(path =  "images/wolf_howling.jpg")
 ```
 
-Gray wolves (*Canis lupus)* historically existed in Idaho until they were extirpated due to human persecution in the early 20th century. Gray wolves were reintroduced to Yellowstone National Park, Wyoming, and central Idaho in 1995-1996. Regulated harvest is relatively new for gray wolves in the United States. These populations have expanded leading to removal of the Endangered Species Act protections in 2009. Harvest of wolves began after ESA protections were removed in the Northern Rocky Mountains (Idaho, Montana, and Wyoming).
+Gray wolves (*Canis lupus)* historically existed in Idaho until they were extirpated due to human persecution in the early 20th century. Gray wolves were reintroduced to Yellowstone National Park, Wyoming, and central Idaho in 1995-1996. The management of wolves through regulated harvest (i.e., hunting and trapping) is relatively new in the United States. As these populations expanded, protections from the Endangered Species Act were removed in 2009. Following this delisting, the Idaho Department of Fish and Game (IDFG) designated wolves as a big game species and allowed for [regulated harvest](https://idfg.idaho.gov/form/wolf-plan-2023).
 
 ## Study area
 
@@ -31,22 +31,21 @@ This data was collected from across Idaho, USA (Figure 1.2)
 knitr::include_graphics(path =  "images/idaho_gmu.jpg")
 ```
 
-Wolves are harvested with methods including hunting and trapping (Figure 1.3).
+Wolves are subject to regulated harvest with methods including hunting and trapping (Figure 1.3). Harvested wolves are required to be checked by IDFG personnel that record data (e.g., method of take). Personnel also remove tissue or tooth samples for later genetic analyses.
 
-```{r fig.cap="Old trap", fig.align='center', out.width='50%', echo = F}
+```{r fig.cap="Demonstrating how a wolf trap works", fig.align='center', out.width='50%', echo = F}
 knitr::include_graphics(path =  "images/trap.jpg")
 ```
 
-To determine the effects of hunting and trapping on gray wolves we use a combination of fieldwork (Figure 1.4) and genetic data sometimes collected as scat (Figure 1.5). 
+We also use conduct field work (lots of hiking and howling) (Figure 1.4) to find wolves and collect genetic samples (i.e., scat) (Figure 1.5) from every individual in a study pack. This allows us to obtain individual genetic identifications of wolf packs and in combination with IDFG harvest data allow us to study the potential effects of hunting and trapping on wolves.
 
-```{r fig.cap="Surveying for wolves", fig.align='center', out.width='50%', echo = F}
+```{r fig.cap="Surveying for wolves in Idaho, summer 2024", fig.align='center', out.width='50%', echo = F}
 knitr::include_graphics(path =  "images/surveying.jpg")
 ```
 
-```{r fig.cap="Freshest wolf scat I've ever seen", fig.align='center', out.width='50%', echo = F}
+```{r fig.cap="Freshest wolf scat I've ever seen, summer 2024", fig.align='center', out.width='50%', echo = F}
 knitr::include_graphics(path =  "images/scat.jpg")
 ```
-
 
 ## Institution
 
@@ -55,7 +54,6 @@ This data was collected and compiled by the Idaho Department of Fish and Game an
 ```{r fig.cap = "Gray Wolf Research Group", fig.align='center', out.width='40%', echo = F}
 knitr::include_graphics(path =  "images/logo.png")
 ```
-
 
 ```{r eval=FALSE, echo = F}
 bookdown::serve_book()
